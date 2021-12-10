@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(const MyApp());
@@ -50,7 +51,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late WebViewController controller;
-
+  String _url = 'https://flutter.dev';
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -78,9 +79,13 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.import_export,size : 32),
         onPressed: () async{
-          controller.loadUrl("https://github.com/");
+          _launchURL();
         },
       ),
     );
   }
+ _launchURL() async{
+   if (!await launch(_url)) throw 'Could not launch $_url';
+
+ }
 }
